@@ -7,6 +7,7 @@ const caseStudies = [
   {
     industry: 'B2B Consulting',
     client: 'Strategic Advising Group',
+    slug: 'strategic-advising-group',
     challenge: 'Beautiful portfolio site, but no lead conversion. Prospects visited but never called.',
     built: 'Rebuilt with clear service pricing, case study hubs, AI chatbot for qualification, and Calendly integration.',
     metric: '+180%',
@@ -16,6 +17,7 @@ const caseStudies = [
   {
     industry: 'Legal Services',
     client: 'Silva & Partners',
+    slug: 'silva-and-partners',
     challenge: 'Site built by intern. Mobile-broken. Forms didn\'t work. Zero analytics.',
     built: 'Conversion-first redesign with clear specializations, testimonials section, live chat, and form automations to HubSpot.',
     metric: '4.3×',
@@ -25,6 +27,7 @@ const caseStudies = [
   {
     industry: 'E-Commerce',
     client: 'Andino Artisan Goods',
+    slug: 'andino-artisan-goods',
     challenge: 'Shipping confusion, cart abandonment at 79%, no way to reach support.',
     built: 'Rebuilt on Next.js with clear shipping info, AI chat support, email automations, and SEO-optimized product pages.',
     metric: '+$45K',
@@ -34,6 +37,7 @@ const caseStudies = [
   {
     industry: 'Coach & Wellness',
     client: 'Vitality Coaching',
+    slug: 'vitality-coaching',
     challenge: 'Coaching business with no online booking. All sales were manual email threads.',
     built: 'Branded portal with service offerings, transparent pricing, Calendly booking, and email sequence automations.',
     metric: '+320%',
@@ -87,7 +91,7 @@ export default function Work() {
             Real problems. Real results.
           </h2>
           <p className="mt-3 text-[#A0A09A] text-[16px] leading-[1.7] max-w-xl mx-auto">
-            Every project starts with broken conversions and ends with measurable growth. Here&apos;s what we built.
+            Every project starts with broken conversions and ends with measurable growth. Here's what we built.
           </p>
         </div>
 
@@ -157,7 +161,7 @@ export default function Work() {
                       </p>
                     </div>
                     <a
-                      href="/work/case-study"
+                      href={`/work/${cs.slug}`}
                       className="inline-flex items-center gap-1 text-[13px] font-medium group-hover:gap-2 transition-all duration-200"
                       style={{ color: '#F97316' }}
                     >
