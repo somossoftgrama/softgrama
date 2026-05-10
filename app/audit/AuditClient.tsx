@@ -108,7 +108,7 @@ export default function AuditClient() {
             className="max-w-[560px] text-[#A0A09A] leading-[1.7]"
             style={{ fontSize: '16px' }}
           >
-            Get an instant analysis of your site's messaging, conversion readiness, AI opportunities, and top 3 quick wins — powered by Claude.
+            Get an instant analysis of your site's messaging, conversion readiness, AI opportunities, and top 3 quick wins.
           </p>
         </div>
       </section>

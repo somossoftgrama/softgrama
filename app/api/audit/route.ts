@@ -7,10 +7,10 @@ export async function POST(request: Request) {
       return Response.json({ error: 'Missing or invalid url' }, { status: 400 })
     }
 
-    const apiKey = process.env.GEMINI_API_KEY
+    const apiKey = process.env.GROQ_API_KEY
     if (!apiKey) {
       return Response.json(
-        { error: 'GEMINI_API_KEY is not set' },
+        { error: 'GROQ_API_KEY is not set' },
         { status: 500 }
       )
     }
@@ -18,48 +18,45 @@ export async function POST(request: Request) {
     const systemPrompt =
       'You are a website conversion and AI-readiness expert working for Softgrama, an AI-powered web studio. Analyze the website at the given URL and return ONLY a valid JSON object with this exact structure: { "categories": [ { "name": "Messaging clarity", "score": 0-10, "findings": ["finding 1", "finding 2"] }, { "name": "Conversion readiness", "score": 0-10, "findings": ["finding 1", "finding 2"] }, { "name": "AI readiness", "score": 0-10, "findings": ["finding 1", "finding 2"] }, { "name": "SEO & performance", "score": 0-10, "findings": ["finding 1", "finding 2"] } ], "opportunities": [ { "title": "Short title", "description": "One sentence." }, { "title": "Short title", "description": "One sentence." }, { "title": "Short title", "description": "One sentence." } ] }'
 
-    const geminiResponse = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`,
+    const groqResponse = await fetch(
+      'https://api.groq.com/openai/v1/chat/completions',
       {
         method: 'POST',
         headers: {
+          'Authorization': `Bearer ${apiKey}`,
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          systemInstruction: {
-            parts: [
-              {
-                text: systemPrompt,
-              },
-            ],
-          },
-          contents: [
+          model: 'llama-3.3-70b-versatile',
+          messages: [
             {
-              parts: [
-                {
-                  text: `Analyze the website at this URL: ${url}`,
-                },
-              ],
+              role: 'system',
+              content: systemPrompt,
+            },
+            {
+              role: 'user',
+              content: `Audit this website and return the JSON report: ${url}`,
             },
           ],
+          max_tokens: 1000,
         }),
       }
     )
 
-    if (!geminiResponse.ok) {
-      const errorText = await geminiResponse.text()
+    if (!groqResponse.ok) {
+      const errorText = await groqResponse.text()
       return Response.json(
-        { error: 'Gemini API error', details: errorText },
-        { status: geminiResponse.status }
+        { error: 'Groq API error', details: errorText },
+        { status: groqResponse.status }
       )
     }
 
-    const data = await geminiResponse.json()
-    const content = data.candidates?.[0]?.content?.parts?.[0]?.text
+    const data = await groqResponse.json()
+    const content = data.choices?.[0]?.message?.content
 
     if (!content) {
       return Response.json(
-        { error: 'No content returned from Gemini' },
+        { error: 'No content returned from Groq' },
         { status: 500 }
       )
     }

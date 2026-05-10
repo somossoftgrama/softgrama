@@ -29,7 +29,7 @@ const sections = [
   },
   {
     title: 'Third party services',
-    body: 'We use Calendly for scheduling calls and the Anthropic API to power our free audit tool. Any data processed through these services is handled according to their respective privacy policies. We recommend reviewing those policies if you have specific questions about how they handle data.',
+    body: 'We use Calendly for scheduling calls and an AI service to power our free audit tool. Any data processed through these services is handled according to their respective privacy policies. We recommend reviewing those policies if you have specific questions about how they handle data.',
   },
   {
     title: 'Your rights',
