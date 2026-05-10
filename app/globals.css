@@ -1,0 +1,153 @@
+@import 'tailwindcss';
+@import 'tw-animate-css';
+
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  /* Softgrama color system */
+  --bg-base: #0A0A0A;
+  --bg-surface: #111111;
+  --bg-elevated: #1A1A1A;
+  --bg-footer: #080808;
+
+  --border-default: rgba(255,255,255,0.08);
+  --border-subtle: rgba(255,255,255,0.04);
+  --border-accent: rgba(255,255,255,0.15);
+
+  --text-primary: #F5F5F3;
+  --text-secondary: #A0A09A;
+  --text-tertiary: #5C5C58;
+
+  --accent: #F97316;
+  --accent-muted: rgba(249,115,22,0.15);
+  --accent-border: rgba(249,115,22,0.3);
+  --accent-glow: rgba(249,115,22,0.06);
+
+  /* shadcn tokens mapped to dark Softgrama palette */
+  --background: #0A0A0A;
+  --foreground: #F5F5F3;
+  --card: #111111;
+  --card-foreground: #F5F5F3;
+  --popover: #1A1A1A;
+  --popover-foreground: #F5F5F3;
+  --primary: #F97316;
+  --primary-foreground: #0A0A0A;
+  --secondary: #1A1A1A;
+  --secondary-foreground: #F5F5F3;
+  --muted: #111111;
+  --muted-foreground: #A0A09A;
+  --accent: #1A1A1A;
+  --accent-foreground: #F5F5F3;
+  --destructive: #EF4444;
+  --destructive-foreground: #F5F5F3;
+  --border: rgba(255,255,255,0.08);
+  --input: rgba(255,255,255,0.08);
+  --ring: rgba(249,115,22,0.4);
+  --radius: 0.5rem;
+}
+
+@theme inline {
+  --font-sans: var(--font-inter), 'DM Sans', sans-serif;
+  --font-display: var(--font-sora), 'Plus Jakarta Sans', sans-serif;
+  --font-mono: var(--font-mono), 'Fira Code', monospace;
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --radius-sm: calc(var(--radius) - 2px);
+  --radius-md: var(--radius);
+  --radius-lg: calc(var(--radius) + 4px);
+  --radius-xl: calc(var(--radius) + 8px);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply bg-background text-foreground;
+    background-color: #0A0A0A;
+    color: #F5F5F3;
+  }
+  h1, h2 {
+    font-family: var(--font-sora), 'Plus Jakarta Sans', sans-serif;
+  }
+}
+
+/* Softgrama utility classes */
+@layer utilities {
+  .font-display {
+    font-family: var(--font-sora), 'Plus Jakarta Sans', sans-serif;
+  }
+
+  .glass-card {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 16px;
+    backdrop-filter: blur(12px);
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .glass-card:hover {
+    border-color: rgba(249,115,22,0.3);
+    box-shadow: 0 -1px 0 rgba(249,115,22,0.4);
+  }
+
+  .orange-glow {
+    position: absolute;
+    width: 600px;
+    height: 600px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(249,115,22,0.06) 0%, transparent 70%);
+    pointer-events: none;
+    animation: glow-pulse 4s ease-in-out infinite;
+  }
+
+  @keyframes glow-pulse {
+    0%, 100% { opacity: 0.6; }
+    50% { opacity: 1; }
+  }
+
+  .fade-up {
+    opacity: 0;
+    transform: translateY(16px);
+    animation: fade-up-anim 0.4s ease-out forwards;
+  }
+
+  @keyframes fade-up-anim {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .section-animate {
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity 0.4s ease-out, transform 0.4s ease-out;
+  }
+
+  .section-animate.in-view {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
